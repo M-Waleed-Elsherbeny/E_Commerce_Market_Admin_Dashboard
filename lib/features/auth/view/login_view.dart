@@ -29,16 +29,41 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Form(
-          key: formKey,
-          child: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15.r),
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height * 0.2,
+                decoration: BoxDecoration(
+                  color: AppColors.kPrimaryColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(500.r),
+                    bottomRight: Radius.circular(500.r),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.kYellowColor,
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  "Login to Admin Dashboard",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
+            ),
+            HeightSpacer(height: 150.h),
+            SizedBox(
+              width: 600.w,
+              height: 400.h,
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -70,6 +95,7 @@ class _LoginViewState extends State<LoginView> {
                       HeightSpacer(height: 20.h),
                       CustomTextField(
                         controller: passwordController,
+                        isPassword: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your Password';
@@ -86,18 +112,20 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       HeightSpacer(height: 50.h),
-                      CustomButton(
-                        textButton: "Login",
-                        onPressed: () {},
-                        buttonWidth: double.infinity,
-                        buttonHeight: 70.h,
+                      SizedBox(
+                        width: 400.w,
+                        height: 70.h,
+                        child: CustomButton(
+                          textButton: "Login",
+                          onPressed: () {},
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -43,7 +43,7 @@ class CustomLoginMethods extends StatelessWidget {
             ),
           ),
           onPressed: onFacebookSignIn,
-          icon: Icon(
+          icon: const Icon(
             Icons.facebook_outlined,
             size: 50,
             color: AppColors.kPrimaryColor,
@@ -51,7 +51,7 @@ class CustomLoginMethods extends StatelessWidget {
         ),
         IconButton(
           onPressed: onAppleSignIn,
-          icon: Icon(
+          icon: const Icon(
             Icons.apple_outlined,
             size: 50,
             color: AppColors.kBlackColor,

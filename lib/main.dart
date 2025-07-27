@@ -1,4 +1,3 @@
-import 'package:admin_dashboard/core/database/supabase_config.dart';
 import 'package:admin_dashboard/core/observer/my_bloc_observer.dart';
 import 'package:admin_dashboard/core/routes/app_routes_config.dart';
 import 'package:flutter/material.dart';

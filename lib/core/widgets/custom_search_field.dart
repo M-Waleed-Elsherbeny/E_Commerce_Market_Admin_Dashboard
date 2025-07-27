@@ -33,18 +33,18 @@ class CustomTextField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         isDense: true,
-        errorStyle: TextStyle(fontSize: 12, color: Colors.red),
+        errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
         filled: true,
         fillColor: AppColors.kWhiteColor,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         suffixIcon:
             isPassword
-                ? Icon(Icons.visibility_off, color: AppColors.kGreyColor)
+                ? const Icon(Icons.visibility_off, color: AppColors.kGreyColor)
                 : suffixIcon,
         prefixIcon: prefixIcon,
         label: Text(
           labelText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             color: AppColors.kGreyColor,
             fontWeight: FontWeight.bold,
@@ -52,19 +52,19 @@ class CustomTextField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.red, width: 2),
+          borderSide: const BorderSide(color: Colors.red, width: 2),
         ),
       ),
     );

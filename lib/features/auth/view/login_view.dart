@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
                     bottomRight: Radius.circular(500.r),
                   ),
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                       color: AppColors.kYellowColor,
                       blurRadius: 10,
                       spreadRadius: 2,
@@ -120,7 +120,7 @@ class _LoginViewState extends State<LoginView> {
                         child: CustomButton(
                           textButton: "Login",
                           onPressed: () {
-                            context.push(AppRoutes.homeScreen);
+                            context.pushReplacementNamed(AppRoutes.homeScreen);
                           },
                         ),
                       ),

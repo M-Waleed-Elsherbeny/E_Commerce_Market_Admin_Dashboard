@@ -1,4 +1,5 @@
 import 'package:admin_dashboard/core/functions/custom_app_bar.dart';
+import 'package:admin_dashboard/features/products/widgets/custom_product_card.dart';
 import 'package:flutter/material.dart';
 
 class ProductsView extends StatelessWidget {
@@ -8,11 +9,11 @@ class ProductsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildCustomAppBar(context, "Products View"),
-      body: Center(
-        child: Text(
-          "Products will be displayed here",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return const CustomProductCard();
+        },
       ),
     );
   }

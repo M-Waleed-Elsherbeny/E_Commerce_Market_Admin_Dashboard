@@ -1,4 +1,3 @@
-import 'package:admin_dashboard/core/colors/app_colors.dart';
 import 'package:admin_dashboard/core/functions/custom_app_bar.dart';
 import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/features/home/widgets/custom_card_chooser.dart';
@@ -19,7 +18,7 @@ class HomeView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children:  [
               CustomCardChooser(
                 onPressed: () {
                   context.pushNamed(AppRoutes.productsView);

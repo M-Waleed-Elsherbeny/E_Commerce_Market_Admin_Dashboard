@@ -28,6 +28,5 @@ AppBar buildCustomAppBar(
               color: AppColors.kWhiteColor,
             )
             : Container(),
-    toolbarHeight: 50.h,
   );
 }

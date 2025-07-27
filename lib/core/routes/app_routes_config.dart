@@ -1,5 +1,7 @@
 import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
+import 'package:admin_dashboard/features/home/view/home_view.dart';
+import 'package:admin_dashboard/features/products/view/products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,46 +19,21 @@ class AppRoutesConfig {
         builder: (BuildContext context, GoRouterState state) {
           return const LoginView();
         },
-      ), // features
-      // GoRoute(
-      //   name: AppRoutes.forgetPasswordScreen,
-      //   path: AppRoutes.forgetPasswordScreen,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const ForgetPasswordScreen();
-      //   },
-      // ),
-      // GoRoute(
-      //   name: AppRoutes.registerScreen,
-      //   path: AppRoutes.registerScreen,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const SignupScreen();
-      //   },
-      // ),
-      // GoRoute(
-      //   name: AppRoutes.mainNavBar,
-      //   path: AppRoutes.mainNavBar,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return MultiBlocProvider(
-      //       providers: [
-      //         BlocProvider(
-      //           create: (context) => NavBarCubit(),
-      //         ),
-      //         BlocProvider(
-      //           create: (context) => GetProductsCubit(),
-      //         ),
-              
-      //       ],
-      //       child: MainNavBar(),
-      //     );
-      //   },
-      // ),
-      // GoRoute(
-      //   name: AppRoutes.homeScreen,
-      //   path: AppRoutes.homeScreen,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const HomeScreen();
-      //   },
-      // ),
+      ),
+      GoRoute(
+        name: AppRoutes.homeScreen,
+        path: AppRoutes.homeScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomeView();
+        },
+      ),
+      GoRoute(
+        name: AppRoutes.productsView,
+        path: AppRoutes.productsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ProductsView();
+        },
+      ),
       // GoRoute(
       //   name: AppRoutes.editProfileScreen,
       //   path: AppRoutes.editProfileScreen,

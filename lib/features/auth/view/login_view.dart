@@ -1,4 +1,10 @@
+import 'package:admin_dashboard/core/colors/app_colors.dart';
+import 'package:admin_dashboard/core/functions/email_validator.dart';
+import 'package:admin_dashboard/core/widgets/custom_search_field.dart';
+import 'package:admin_dashboard/core/widgets/height_spacer.dart';
+import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -8,13 +14,90 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Login View',
-          style: TextStyle(fontSize: 24, color: Colors.black),
+      body: SafeArea(
+        child: Form(
+          key: formKey,
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.r),
+              ),
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      CustomTextField(
+                        controller: emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          } else if (!checkEmail(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          // Add more validation if needed
+                          return null;
+                        },
+                        labelText: "Email",
+                        prefixIcon: const Icon(
+                          Icons.email_rounded,
+                          color: AppColors.kPrimaryColor,
+                        ),
+                      ),
+                      HeightSpacer(height: 20.h),
+                      CustomTextField(
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Password';
+                          } else if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          // Add more validation if needed
+                          return null;
+                        },
+                        labelText: "Password",
+                        prefixIcon: const Icon(
+                          Icons.lock_rounded,
+                          color: AppColors.kPrimaryColor,
+                        ),
+                      ),
+                      HeightSpacer(height: 50.h),
+                      CustomButton(
+                        textButton: "Login",
+                        onPressed: () {},
+                        buttonWidth: double.infinity,
+                        buttonHeight: 70.h,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

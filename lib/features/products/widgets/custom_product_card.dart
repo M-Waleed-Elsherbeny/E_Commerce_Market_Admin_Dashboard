@@ -90,7 +90,9 @@ class CustomProductCard extends StatelessWidget {
                         size: 30.sp,
                         color: AppColors.kWhiteColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(AppRoutes.commentsView);
+                      },
                     ),
                     CustomButton(
                       onPressed: () {},

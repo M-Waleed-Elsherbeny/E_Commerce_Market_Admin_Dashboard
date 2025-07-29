@@ -1,6 +1,7 @@
 import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
 import 'package:admin_dashboard/features/home/view/home_view.dart';
+import 'package:admin_dashboard/features/products/view/edit_product_view.dart';
 import 'package:admin_dashboard/features/products/view/products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,13 +35,13 @@ class AppRoutesConfig {
           return const ProductsView();
         },
       ),
-      // GoRoute(
-      //   name: AppRoutes.editProfileScreen,
-      //   path: AppRoutes.editProfileScreen,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const EditProfileView();
-      //   },
-      // ),
+      GoRoute(
+        name: AppRoutes.editProductsView,
+        path: AppRoutes.editProductsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const EditProductView();
+        },
+      ),
       // GoRoute(
       //   name: AppRoutes.myOrdersView,
       //   path: AppRoutes.myOrdersView,

@@ -11,7 +11,6 @@ AppBar buildCustomAppBar(
   return AppBar(
     backgroundColor: AppColors.kPrimaryColor,
     centerTitle: true,
-    toolbarHeight: MediaQuery.of(context).size.height * 0.05,
     title: Text(title),
     titleTextStyle: TextStyle(
       fontSize: 30.sp,

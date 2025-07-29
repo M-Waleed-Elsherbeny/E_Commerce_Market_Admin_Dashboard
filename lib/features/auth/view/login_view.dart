@@ -1,7 +1,7 @@
 import 'package:admin_dashboard/core/colors/app_colors.dart';
 import 'package:admin_dashboard/core/functions/email_validator.dart';
 import 'package:admin_dashboard/core/routes/app_routes.dart';
-import 'package:admin_dashboard/core/widgets/custom_search_field.dart';
+import 'package:admin_dashboard/core/widgets/custom_text_field.dart';
 import 'package:admin_dashboard/core/widgets/height_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _LoginViewState extends State<LoginView> {
                         child: CustomButton(
                           textButton: "Login",
                           onPressed: () {
-                            context.pushReplacementNamed(AppRoutes.homeScreen);
+                            context.go(AppRoutes.homeScreen);
                           },
                         ),
                       ),

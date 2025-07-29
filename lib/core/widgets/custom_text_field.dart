@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon, prefixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final int maxLines;
   final bool isPassword;
   const CustomTextField({
     super.key,
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.prefixIcon,
     this.isPassword = false,
+    this.maxLines = 1,
   });
 
   @override
@@ -25,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: isPassword,
       obscuringCharacter: "*",
+      maxLines: maxLines,
       cursorColor: AppColors.kPrimaryColor,
       style: TextStyle(
         fontSize: 15.sp,
@@ -35,8 +38,12 @@ class CustomTextField extends StatelessWidget {
         isDense: true,
         errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
         filled: true,
+
         fillColor: AppColors.kWhiteColor,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 15,
+        ),
         suffixIcon:
             isPassword
                 ? const Icon(Icons.visibility_off, color: AppColors.kGreyColor)
@@ -52,15 +59,24 @@ class CustomTextField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.kBorderSideColor,
+            width: 2,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.kBorderSideColor,
+            width: 2,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.kBorderSideColor, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.kBorderSideColor,
+            width: 2,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

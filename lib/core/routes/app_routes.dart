@@ -7,6 +7,8 @@ class AppRoutes {
   static const String productsView= '/productsView';
   static const String editProductsView = '/editProductsView';
   static const String commentsView = '/commentsView';
+  static const String addProductsView = '/addProductsView';
+  static const String addAdminView = '/addAdminView';
   // static const String myOrdersView = '/myOrdersView';
   // static const String productDetailsScreen = '/productDetailsScreen';
   // static const String paymentView = '/paymentView';

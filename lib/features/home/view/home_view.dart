@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
+            children: [
               CustomCardChooser(
                 onPressed: () {
                   context.pushNamed(AppRoutes.productsView);
@@ -27,12 +27,16 @@ class HomeView extends StatelessWidget {
                 icon: Icons.shopping_bag,
               ),
               CustomCardChooser(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(AppRoutes.addProductsView);
+                },
                 title: "Add Product",
                 icon: Icons.add_circle,
               ),
               CustomCardChooser(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(AppRoutes.addAdminView);
+                },
                 title: "Add a New Admin",
                 icon: Icons.admin_panel_settings,
               ),

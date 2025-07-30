@@ -1,4 +1,6 @@
 import 'package:admin_dashboard/core/routes/app_routes.dart';
+import 'package:admin_dashboard/features/add_products/view/add_products_view.dart';
+import 'package:admin_dashboard/features/auth/view/add_admin_view.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
 import 'package:admin_dashboard/features/home/view/home_view.dart';
 import 'package:admin_dashboard/features/products/view/comments_view.dart';
@@ -50,15 +52,20 @@ class AppRoutesConfig {
           return const CommentsView();
         },
       ),
-      // GoRoute(
-      //   name: AppRoutes.productDetailsScreen,
-      //   path: AppRoutes.productDetailsScreen,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     final HomeProductsModel productsModel =
-      //         state.extra as HomeProductsModel;
-      //     return ProductDetailsScreen(productsModel: productsModel);
-      //   },
-      // ),
+      GoRoute(
+        name: AppRoutes.addProductsView,
+        path: AppRoutes.addProductsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const AddProductView();
+        },
+      ),
+      GoRoute(
+        name: AppRoutes.addAdminView,
+        path: AppRoutes.addAdminView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const AddAdminView();
+        },
+      ),
     ],
   );
 }

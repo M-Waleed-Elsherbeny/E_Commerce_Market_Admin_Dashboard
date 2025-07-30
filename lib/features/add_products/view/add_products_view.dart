@@ -9,14 +9,14 @@ import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EditProductView extends StatefulWidget {
-  const EditProductView({super.key});
+class AddProductView extends StatefulWidget {
+  const AddProductView({super.key});
 
   @override
-  State<EditProductView> createState() => _EditProductViewState();
+  State<AddProductView> createState() => _AddProductViewState();
 }
 
-class _EditProductViewState extends State<EditProductView> {
+class _AddProductViewState extends State<AddProductView> {
   List<DropdownMenuEntry<String>> dropdownMenuEntries = [
     const DropdownMenuEntry<String>(
       value: "Select Category",
@@ -247,7 +247,7 @@ class _EditProductViewState extends State<EditProductView> {
                       }
                     },
                     child: Text(
-                      "Edit Product",
+                      "Add Product",
                       style: TextStyle(
                         color: AppColors.kScaffoldColor,
                         fontSize: 25.sp,

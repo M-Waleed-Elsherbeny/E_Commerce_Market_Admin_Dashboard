@@ -5,4 +5,5 @@ class AppAssets {
   static const String imageStore1 = '$imagePath/store_1.png';
   static const String imageStore2 = '$imagePath/store_2.png';
   static const String imageSports = '$imagePath/sports.jpg';
+  static const String imageSale = '$imagePath/sale.png';
 }

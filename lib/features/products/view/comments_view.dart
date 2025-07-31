@@ -30,24 +30,24 @@ class CommentsView extends StatelessWidget {
                   'User Name : Mohammed Waleed',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                HeightSpacer(height: 20),
+                const HeightSpacer(height: 20),
                 const Text(
                   'User Comment : This is a sample comment.',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                HeightSpacer(height: 20),
+                const HeightSpacer(height: 20),
                 const Text(
                   'User Rate : This is a sample rate.',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                HeightSpacer(height: 70),
+                const HeightSpacer(height: 70),
                 const Text(
                   'Reply : This is a sample reply.',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                HeightSpacer(height: 50),
-                CustomTextField(labelText: 'Reply to Comment', maxLines: 5),
-                HeightSpacer(height: 50),
+                const HeightSpacer(height: 50),
+                const CustomTextField(labelText: 'Reply to Comment', maxLines: 5),
+                const HeightSpacer(height: 50),
                 Center(
                   child: SizedBox(
                     width: 200.w,
@@ -60,7 +60,7 @@ class CommentsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                HeightSpacer(height: 50),
+                const HeightSpacer(height: 50),
               ],
             ),
           );

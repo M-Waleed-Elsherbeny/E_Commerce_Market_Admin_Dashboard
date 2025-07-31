@@ -1,5 +1,6 @@
 import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/features/add_products/view/add_products_view.dart';
+import 'package:admin_dashboard/features/auth/cubit/cubit/admin_authentication_cubit.dart';
 import 'package:admin_dashboard/features/auth/view/add_admin_view.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
 import 'package:admin_dashboard/features/home/view/home_view.dart';
@@ -7,6 +8,7 @@ import 'package:admin_dashboard/features/products/view/comments_view.dart';
 import 'package:admin_dashboard/features/products/view/edit_product_view.dart';
 import 'package:admin_dashboard/features/products/view/products_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -63,7 +65,10 @@ class AppRoutesConfig {
         name: AppRoutes.addAdminView,
         path: AppRoutes.addAdminView,
         builder: (BuildContext context, GoRouterState state) {
-          return const AddAdminView();
+          return BlocProvider(
+            create: (context) => AdminAuthenticationCubit(),
+            child: const AddAdminView(),
+          );
         },
       ),
     ],

@@ -40,6 +40,7 @@ class _AddAdminViewState extends State<AddAdminView> {
         if (state is AddAdminError) {
           customSnackBar(context, state.errorMessage);
         } else if (state is AddAdminSuccess) {
+          customSnackBar(context, "Admin Created Successfully");
           context.pop();
         }
       },
@@ -134,10 +135,6 @@ class _AddAdminViewState extends State<AddAdminView> {
                                           authCubit.createAdminAccount(
                                             email: emailController.text,
                                             password: passwordController.text,
-                                          );
-                                          customSnackBar(
-                                            context,
-                                            "Admin Created Successfully",
                                           );
                                         }
                                       },

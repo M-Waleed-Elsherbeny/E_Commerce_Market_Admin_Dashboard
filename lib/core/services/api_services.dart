@@ -65,11 +65,19 @@ class ApiServices {
     String endPoint,
     Map<String, dynamic> data,
   ) async {
-    try {
-      final response = await _dioAuth.post(endPoint, data: data);
-      return response;
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _dioAuth.post(endPoint, data: data);
+    return response;
+  }
+
+  Future<Response> loginAdminAccount(
+    String endPoint,
+    Map<String, dynamic> data,
+  ) async {
+    Response response = await _dioAuth.post(
+      endPoint,
+      data: data,
+      queryParameters: {"grant_type": "password"},
+    );
+    return response;
   }
 }

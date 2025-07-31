@@ -23,7 +23,10 @@ class AppRoutesConfig {
         name: AppRoutes.loginScreen,
         path: AppRoutes.loginScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginView();
+          return BlocProvider(
+            create: (context) => AdminAuthenticationCubit(),
+            child: const LoginView(),
+          );
         },
       ),
       GoRoute(

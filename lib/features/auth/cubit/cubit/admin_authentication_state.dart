@@ -13,3 +13,12 @@ final class AddAdminError extends AdminAuthenticationState {
 
   AddAdminError(this.errorMessage);
 }
+final class LoginAdminLoading extends AdminAuthenticationState {}
+
+final class LoginAdminSuccess extends AdminAuthenticationState {}
+
+final class LoginAdminError extends AdminAuthenticationState {
+  final String errorMessage;
+
+  LoginAdminError(this.errorMessage);
+}

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:admin_dashboard/core/services/api_services.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +20,35 @@ class AdminAuthenticationCubit extends Cubit<AdminAuthenticationState> {
         "email": email,
         "password": password,
       });
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200) {
         emit(AddAdminSuccess());
+      } else {
+        emit(AddAdminError(response.data["msg"]));
       }
     } catch (e) {
+      log("Error in createAdminAccount: $e");
       emit(AddAdminError(e.toString()));
+    }
+  }
+
+  Future<void> loginAdmin({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      emit(LoginAdminLoading());
+      Response response = await apiServices.loginAdminAccount("token", {
+        "email": email,
+        "password": password,
+      });
+      if (response.statusCode == 200) {
+        emit(LoginAdminSuccess());
+      } else {
+        emit(LoginAdminError(response.statusMessage!));
+      }
+    } catch (e) {
+      log("Error in loginAdmin : $e");
+      emit(LoginAdminError(e.toString()));
     }
   }
 }

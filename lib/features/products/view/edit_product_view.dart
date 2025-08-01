@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:admin_dashboard/core/colors/app_colors.dart';
+import 'package:admin_dashboard/core/data/shared_pref.dart';
 import 'package:admin_dashboard/core/functions/custom_app_bar.dart';
-import 'package:admin_dashboard/core/functions/custom_snack_bar.dart';
 import 'package:admin_dashboard/core/widgets/custom_catch_image.dart';
 import 'package:admin_dashboard/core/widgets/custom_text_field.dart';
 import 'package:admin_dashboard/core/widgets/height_spacer.dart';
@@ -236,15 +238,17 @@ class _EditProductViewState extends State<EditProductView> {
                   width: 300.w,
                   height: 60.h,
                   child: CustomButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Handle save changes logic
-                        customSnackBar(
-                          context,
-                          "Product details updated successfully!",
-                          backgroundColor: AppColors.kPrimaryColor,
-                        );
-                      }
+                    onPressed: () async {
+                      String? token = await SharedPref.getToken();
+                      log("Token: $token");
+                      // if (_formKey.currentState!.validate()) {
+                      //   // Handle save changes logic
+                      //   customSnackBar(
+                      //     context,
+                      //     "Product details updated successfully!",
+                      //     backgroundColor: AppColors.kPrimaryColor,
+                      //   );
+                      // }
                     },
                     child: Text(
                       "Edit Product",

@@ -47,110 +47,113 @@ class _AddAdminViewState extends State<AddAdminView> {
       builder: (context, state) {
         AdminAuthenticationCubit authCubit =
             context.read<AdminAuthenticationCubit>();
-        return state is AddAdminLoading
-            ? const CustomLoading()
-            : Scaffold(
-              appBar: buildCustomAppBar(context, "Add New Admin"),
-              body: SafeArea(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 600.w,
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.r),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(20.w),
-                            child: Form(
-                              key: formKey,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  CustomTextField(
-                                    controller: nameController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your Name';
-                                      }
-                                      return null;
-                                    },
-                                    labelText: "Admin Name",
-                                    prefixIcon: const Icon(
-                                      Icons.admin_panel_settings_rounded,
-                                      color: AppColors.kPrimaryColor,
-                                    ),
+        return Scaffold(
+          appBar: buildCustomAppBar(context, "Add New Admin"),
+          body: SafeArea(
+            child: Center(
+              child:
+                  state is AddAdminLoading
+                      ? const CustomLoading()
+                      : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 600.w,
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(20.w),
+                                child: Form(
+                                  key: formKey,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      CustomTextField(
+                                        controller: nameController,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your Name';
+                                          }
+                                          return null;
+                                        },
+                                        labelText: "Admin Name",
+                                        prefixIcon: const Icon(
+                                          Icons.admin_panel_settings_rounded,
+                                          color: AppColors.kPrimaryColor,
+                                        ),
+                                      ),
+                                      HeightSpacer(height: 20.h),
+                                      CustomTextField(
+                                        controller: emailController,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your email';
+                                          } else if (!checkEmail(value)) {
+                                            return 'Please enter a valid email';
+                                          }
+                                          // Add more validation if needed
+                                          return null;
+                                        },
+                                        labelText: "Email",
+                                        prefixIcon: const Icon(
+                                          Icons.email_rounded,
+                                          color: AppColors.kPrimaryColor,
+                                        ),
+                                      ),
+                                      HeightSpacer(height: 20.h),
+                                      CustomTextField(
+                                        controller: passwordController,
+                                        isPassword: true,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your Password';
+                                          } else if (value.length < 6) {
+                                            return 'Password must be at least 6 characters';
+                                          }
+                                          // Add more validation if needed
+                                          return null;
+                                        },
+                                        labelText: "Password",
+                                        prefixIcon: const Icon(
+                                          Icons.lock_rounded,
+                                          color: AppColors.kPrimaryColor,
+                                        ),
+                                      ),
+                                      HeightSpacer(height: 50.h),
+                                      SizedBox(
+                                        width: 400.w,
+                                        height: 70.h,
+                                        child: CustomButton(
+                                          textButton: "Create Admin",
+                                          onPressed: () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              authCubit.createAdminAccount(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  HeightSpacer(height: 20.h),
-                                  CustomTextField(
-                                    controller: emailController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your email';
-                                      } else if (!checkEmail(value)) {
-                                        return 'Please enter a valid email';
-                                      }
-                                      // Add more validation if needed
-                                      return null;
-                                    },
-                                    labelText: "Email",
-                                    prefixIcon: const Icon(
-                                      Icons.email_rounded,
-                                      color: AppColors.kPrimaryColor,
-                                    ),
-                                  ),
-                                  HeightSpacer(height: 20.h),
-                                  CustomTextField(
-                                    controller: passwordController,
-                                    isPassword: true,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your Password';
-                                      } else if (value.length < 6) {
-                                        return 'Password must be at least 6 characters';
-                                      }
-                                      // Add more validation if needed
-                                      return null;
-                                    },
-                                    labelText: "Password",
-                                    prefixIcon: const Icon(
-                                      Icons.lock_rounded,
-                                      color: AppColors.kPrimaryColor,
-                                    ),
-                                  ),
-                                  HeightSpacer(height: 50.h),
-                                  SizedBox(
-                                    width: 400.w,
-                                    height: 70.h,
-                                    child: CustomButton(
-                                      textButton: "Create Admin",
-                                      onPressed: () {
-                                        if (formKey.currentState!.validate()) {
-                                          authCubit.createAdminAccount(
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            ),
+          ),
+        );
       },
     );
   }

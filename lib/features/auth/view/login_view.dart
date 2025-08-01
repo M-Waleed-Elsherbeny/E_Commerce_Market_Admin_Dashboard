@@ -45,120 +45,122 @@ class _LoginViewState extends State<LoginView> {
       builder: (context, state) {
         AdminAuthenticationCubit authCubit =
             context.read<AdminAuthenticationCubit>();
-        return state is LoginAdminLoading
-            ? const CustomLoading()
-            : Scaffold(
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        decoration: BoxDecoration(
-                          color: AppColors.kPrimaryColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(500.r),
-                            bottomRight: Radius.circular(500.r),
-                          ),
-                          boxShadow: [
-                            const BoxShadow(
-                              color: AppColors.kYellowColor,
-                              blurRadius: 10,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Login to Admin Dashboard",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    HeightSpacer(height: 150.h),
-                    SizedBox(
-                      width: 600.w,
-                      height: 400.h,
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(20.w),
-                          child: Form(
-                            key: formKey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                CustomTextField(
-                                  controller: emailController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your email';
-                                    } else if (!checkEmail(value)) {
-                                      return 'Please enter a valid email';
-                                    }
-                                    // Add more validation if needed
-                                    return null;
-                                  },
-                                  labelText: "Email",
-                                  prefixIcon: const Icon(
-                                    Icons.email_rounded,
-                                    color: AppColors.kPrimaryColor,
-                                  ),
-                                ),
-                                HeightSpacer(height: 20.h),
-                                CustomTextField(
-                                  controller: passwordController,
-                                  isPassword: true,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your Password';
-                                    } else if (value.length < 6) {
-                                      return 'Password must be at least 6 characters';
-                                    }
-                                    // Add more validation if needed
-                                    return null;
-                                  },
-                                  labelText: "Password",
-                                  prefixIcon: const Icon(
-                                    Icons.lock_rounded,
-                                    color: AppColors.kPrimaryColor,
-                                  ),
-                                ),
-                                HeightSpacer(height: 50.h),
-                                SizedBox(
-                                  width: 400.w,
-                                  height: 70.h,
-                                  child: CustomButton(
-                                    textButton: "Login",
-                                    onPressed: () {
-                                      if (formKey.currentState!.validate()) {
-                                        authCubit.loginAdmin(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                        );
-                                      }
-                                    },
-                                  ),
+        return Scaffold(
+          body: SafeArea(
+            child:
+                state is LoginAdminLoading
+                    ? const CustomLoading()
+                    : Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            decoration: BoxDecoration(
+                              color: AppColors.kPrimaryColor,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(500.r),
+                                bottomRight: Radius.circular(500.r),
+                              ),
+                              boxShadow: [
+                                const BoxShadow(
+                                  color: AppColors.kYellowColor,
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
                                 ),
                               ],
                             ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Login to Admin Dashboard",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        HeightSpacer(height: 150.h),
+                        SizedBox(
+                          width: 600.w,
+                          height: 400.h,
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(20.w),
+                              child: Form(
+                                key: formKey,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    CustomTextField(
+                                      controller: emailController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your email';
+                                        } else if (!checkEmail(value)) {
+                                          return 'Please enter a valid email';
+                                        }
+                                        // Add more validation if needed
+                                        return null;
+                                      },
+                                      labelText: "Email",
+                                      prefixIcon: const Icon(
+                                        Icons.email_rounded,
+                                        color: AppColors.kPrimaryColor,
+                                      ),
+                                    ),
+                                    HeightSpacer(height: 20.h),
+                                    CustomTextField(
+                                      controller: passwordController,
+                                      isPassword: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your Password';
+                                        } else if (value.length < 6) {
+                                          return 'Password must be at least 6 characters';
+                                        }
+                                        // Add more validation if needed
+                                        return null;
+                                      },
+                                      labelText: "Password",
+                                      prefixIcon: const Icon(
+                                        Icons.lock_rounded,
+                                        color: AppColors.kPrimaryColor,
+                                      ),
+                                    ),
+                                    HeightSpacer(height: 50.h),
+                                    SizedBox(
+                                      width: 400.w,
+                                      height: 70.h,
+                                      child: CustomButton(
+                                        textButton: "Login",
+                                        onPressed: () {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            authCubit.loginAdmin(
+                                              email: emailController.text,
+                                              password: passwordController.text,
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
+          ),
+        );
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:admin_dashboard/core/data/shared_pref.dart';
 import 'package:admin_dashboard/core/services/api_services.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,16 +36,18 @@ class AdminAuthenticationCubit extends Cubit<AdminAuthenticationState> {
     required String email,
     required String password,
   }) async {
+    emit(LoginAdminLoading());
     try {
-      emit(LoginAdminLoading());
       Response response = await apiServices.loginAdminAccount("token", {
         "email": email,
         "password": password,
       });
       if (response.statusCode == 200) {
+        // log(response.data['access_token']);
+        await SharedPref.saveToken(response.data['access_token']);
         emit(LoginAdminSuccess());
       } else {
-        emit(LoginAdminError(response.statusMessage!));
+        emit(LoginAdminError(response.data["msg"]));
       }
     } catch (e) {
       log("Error in loginAdmin : $e");

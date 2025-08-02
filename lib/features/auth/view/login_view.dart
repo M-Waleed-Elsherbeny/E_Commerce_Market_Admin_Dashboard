@@ -39,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
           customSnackBar(context, state.errorMessage);
         } else if (state is LoginAdminSuccess) {
           customSnackBar(context, "Login Successfully!!");
-          context.pushNamed(AppRoutes.homeScreen);
+          context.goNamed(AppRoutes.homeScreen);
         }
       },
       builder: (context, state) {

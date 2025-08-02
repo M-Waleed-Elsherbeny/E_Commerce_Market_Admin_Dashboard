@@ -9,12 +9,7 @@ class ProductsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildCustomAppBar(context, "Products View"),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return const CustomProductCard();
-        },
-      ),
+      body: const CustomProductView()
     );
   }
 }

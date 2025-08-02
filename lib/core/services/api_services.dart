@@ -6,9 +6,11 @@ class ApiServices {
     BaseOptions(baseUrl: BASE_URL, headers: {"apikey": API_KEY}),
   );
 
-  Future<Response> getData(String endPoint) async {
+  Future<Response> getData(String endPoint, String token) async {
     try {
-      final response = await _dio.get(endPoint);
+      final response = await _dio.get(endPoint, options: Options(
+        headers: {"Authorization": "Bearer $token"}
+      ));
       return response;
     } catch (e) {
       rethrow;

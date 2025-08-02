@@ -1,4 +1,3 @@
-import 'package:admin_dashboard/core/colors/app_colors.dart';
 import 'package:admin_dashboard/core/widgets/custom_loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,8 @@ class CustomCachedImage extends StatelessWidget {
         placeholder: (context, url) => const CustomLoading(),
         errorWidget:
             (context, url, error) =>
-                const Icon(Icons.error, color: AppColors.kRedColor),
+            Image.network("https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"),
+                // const Icon(Icons.error, color: AppColors.kRedColor),
       ),
     );
   }

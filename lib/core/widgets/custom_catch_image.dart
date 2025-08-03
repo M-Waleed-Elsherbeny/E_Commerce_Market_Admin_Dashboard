@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCachedImage extends StatelessWidget {
-  const CustomCachedImage({super.key, required this.url, this.height, this.width});
+  const CustomCachedImage({
+    super.key,
+    required this.url,
+    this.height,
+    this.width,
+  });
   final String url;
   final double? height, width;
 
@@ -14,13 +19,14 @@ class CustomCachedImage extends StatelessWidget {
       height: height ?? 200.h,
       width: width ?? double.infinity,
       child: CachedNetworkImage(
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
         imageUrl: url,
         placeholder: (context, url) => const CustomLoading(),
         errorWidget:
-            (context, url, error) =>
-            Image.network("https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"),
-                // const Icon(Icons.error, color: AppColors.kRedColor),
+            (context, url, error) => Image.network(
+              "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+            ),
+        // const Icon(Icons.error, color: AppColors.kRedColor),
       ),
     );
   }

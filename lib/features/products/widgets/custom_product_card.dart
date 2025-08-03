@@ -25,16 +25,18 @@ class CustomProductView extends StatelessWidget {
       },
       builder: (context, state) {
         ProductsCubit productsCubit = context.read<ProductsCubit>();
-        return ListView.builder(
-          itemCount: productsCubit.allProducts.length,
-          itemBuilder: (context, index) {
-            return state is GetProductsLoading
-                ? const CustomLoading()
-                : CustomProductCard(
-                  productsModel: productsCubit.allProducts[index],
-                );
-          },
-        );
+        return state is GetProductsLoading
+            ? const CustomLoading()
+            : ListView.builder(
+              itemCount: productsCubit.allProducts.length,
+              itemBuilder: (context, index) {
+                return state is GetProductsLoading
+                    ? const CustomLoading()
+                    : CustomProductCard(
+                      productsModel: productsCubit.allProducts[index],
+                    );
+              },
+            );
       },
     );
   }
@@ -51,106 +53,110 @@ class CustomProductCard extends StatelessWidget {
       child: SizedBox(
         height: 250.h,
         child: Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 250.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: CustomCachedImage(
-                    url:
-                        productsModel.productImage ??
-                        "https://img.freepik.com/free-psd/iphone-15-mockup-perspective_1332-60616.jpg?t=st=1751960051~exp=1751963651~hmac=0d01365c290e0e1b178fe8e473abaa71e382c263ea9561f9c3dcb15f808cf1c2&w=900",
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 250.w,
+                  height: 250.h,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.r),
+                    child: CustomCachedImage(
+                      url:
+                          productsModel.productImage ??
+                          "https://img.freepik.com/free-psd/iphone-15-mockup-perspective_1332-60616.jpg?t=st=1751960051~exp=1751963651~hmac=0d01365c290e0e1b178fe8e473abaa71e382c263ea9561f9c3dcb15f808cf1c2&w=900",
+                    ),
                   ),
                 ),
-              ),
-              const WidthSpacer(width: 20),
-              SizedBox(
-                width: 300.w,
-                child: Column(
+                SizedBox(
+                  width: 300.w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        productsModel.productName ?? "Product Name",
+                        style: TextStyle(
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        productsModel.productDescription ??
+                            "Product Description",
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      productsModel.productName ?? "Product Name",
+                      "${productsModel.productNewPrice} LE",
                       style: TextStyle(
                         fontSize: 30.sp,
                         fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
-                      productsModel.productDescription ?? "Product Description",
+                      "${productsModel.productSale} %",
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "${productsModel.productNewPrice} LE",
-                    style: TextStyle(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomButton(
+                        child: Icon(
+                          Icons.edit,
+                          size: 30.sp,
+                          color: AppColors.kWhiteColor,
+                        ),
+                        onPressed: () {
+                          context.pushNamed(
+                            AppRoutes.editProductsView,
+                            extra: productsModel,
+                          );
+                        },
+                      ),
+                      CustomButton(
+                        child: Icon(
+                          Icons.comment,
+                          size: 30.sp,
+                          color: AppColors.kWhiteColor,
+                        ),
+                        onPressed: () {
+                          context.pushNamed(AppRoutes.commentsView);
+                        },
+                      ),
+                      CustomButton(
+                        onPressed: () {},
+                        backgroundColor: AppColors.kRedColor,
+                        child: Icon(
+                          Icons.delete,
+                          size: 30.sp,
+                          color: AppColors.kWhiteColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "${productsModel.productSale} %",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomButton(
-                      child: Icon(
-                        Icons.edit,
-                        size: 30.sp,
-                        color: AppColors.kWhiteColor,
-                      ),
-                      onPressed: () {
-                        context.pushNamed(
-                          AppRoutes.editProductsView,
-                          extra: productsModel,
-                        );
-                      },
-                    ),
-                    CustomButton(
-                      child: Icon(
-                        Icons.comment,
-                        size: 30.sp,
-                        color: AppColors.kWhiteColor,
-                      ),
-                      onPressed: () {
-                        context.pushNamed(AppRoutes.commentsView);
-                      },
-                    ),
-                    CustomButton(
-                      onPressed: () {},
-                      backgroundColor: AppColors.kRedColor,
-                      child: Icon(
-                        Icons.delete,
-                        size: 30.sp,
-                        color: AppColors.kWhiteColor,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

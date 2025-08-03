@@ -116,18 +116,17 @@ class _EditProductViewState extends State<EditProductView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        width: 300.w,
-                        height: 300.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.r),
                         child: CustomCachedImage(
-                          url: selectedImage ?? widget.productsModel.productImage!,
-                          width: 300.w,
-                          height: 300.w,
+                          url:
+                              selectedImage ??
+                              widget.productsModel.productImage!,
+                          width: 250.w,
+                          height: 250.h,
                         ),
                       ),
+
                       const HeightSpacer(height: 20),
                       SizedBox(
                         width: 300.w,
@@ -143,9 +142,7 @@ class _EditProductViewState extends State<EditProductView> {
                                       selectedImage =
                                           value.files.first.path.toString();
                                       log(value.files.first.name);
-                                      setState(() {
-                                        
-                                      });
+                                      setState(() {});
                                     }
                                   });
                                 },

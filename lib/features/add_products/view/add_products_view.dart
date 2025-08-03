@@ -30,7 +30,7 @@ class _AddProductViewState extends State<AddProductView> {
     const DropdownMenuEntry<String>(value: "Games", label: "Games"),
   ];
   String? selectedCategory = "Select Category";
-  String? sale = "10";
+  String? sale;
   late TextEditingController saleController,
       productNameController,
       oldPriceController,

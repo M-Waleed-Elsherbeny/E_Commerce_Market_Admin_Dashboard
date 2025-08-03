@@ -8,11 +8,13 @@ import 'package:admin_dashboard/core/widgets/custom_text_field.dart';
 import 'package:admin_dashboard/core/widgets/height_spacer.dart';
 import 'package:admin_dashboard/core/widgets/width_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
+import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditProductView extends StatefulWidget {
-  const EditProductView({super.key});
+  const EditProductView({super.key, required this.productsModel});
+  final HomeProductsModel productsModel;
 
   @override
   State<EditProductView> createState() => _EditProductViewState();
@@ -24,14 +26,14 @@ class _EditProductViewState extends State<EditProductView> {
       value: "Select Category",
       label: "Select Category",
     ),
-    const DropdownMenuEntry<String>(value: "Mobiles", label: "Mobiles"),
-    const DropdownMenuEntry<String>(value: "Electronics", label: "Electronics"),
-    const DropdownMenuEntry<String>(value: "Sports", label: "Sports"),
-    const DropdownMenuEntry<String>(value: "Collections", label: "Collections"),
-    const DropdownMenuEntry<String>(value: "Books", label: "Books"),
-    const DropdownMenuEntry<String>(value: "Games", label: "Games"),
+    const DropdownMenuEntry<String>(value: "mobiles", label: "Mobiles"),
+    const DropdownMenuEntry<String>(value: "electronics", label: "Electronics"),
+    const DropdownMenuEntry<String>(value: "sports", label: "Sports"),
+    const DropdownMenuEntry<String>(value: "collections", label: "Collections"),
+    const DropdownMenuEntry<String>(value: "books", label: "Books"),
+    const DropdownMenuEntry<String>(value: "games", label: "Games"),
   ];
-  String? selectedCategory = "Select Category";
+  String? selectedCategory;
   String? sale = "10";
   late TextEditingController saleController,
       productNameController,
@@ -41,11 +43,22 @@ class _EditProductViewState extends State<EditProductView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    saleController = TextEditingController();
-    productNameController = TextEditingController();
-    oldPriceController = TextEditingController();
-    newPriceController = TextEditingController();
-    descriptionController = TextEditingController();
+    saleController = TextEditingController(
+      text: widget.productsModel.productSale,
+    );
+    productNameController = TextEditingController(
+      text: widget.productsModel.productName,
+    );
+    oldPriceController = TextEditingController(
+      text: widget.productsModel.productOldPrice,
+    );
+    newPriceController = TextEditingController(
+      text: widget.productsModel.productNewPrice,
+    );
+    descriptionController = TextEditingController(
+      text: widget.productsModel.productDescription,
+    );
+    selectedCategory = widget.productsModel.productCategory;
     super.initState();
   }
 
@@ -62,7 +75,10 @@ class _EditProductViewState extends State<EditProductView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildCustomAppBar(context, "Edit Product Name"),
+      appBar: buildCustomAppBar(
+        context,
+        "${widget.productsModel.productName}",
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Form(
@@ -87,7 +103,7 @@ class _EditProductViewState extends State<EditProductView> {
                       borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Text(
-                      "$sale % OFF",
+                      "${widget.productsModel.productSale} % OFF",
                       style: TextStyle(
                         color: AppColors.kScaffoldColor,
                         fontSize: 20.sp,
@@ -106,17 +122,11 @@ class _EditProductViewState extends State<EditProductView> {
                         height: 300.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
-                          border: Border.all(
-                            color: AppColors.kPrimaryColor,
-                            width: 2,
-                          ),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.r),
-                          child: const CustomCachedImage(
-                            url:
-                                "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                          ),
+                        child: CustomCachedImage(
+                          url: widget.productsModel.productImage!,
+                          width: 300.w,
+                          height: 300.w,
                         ),
                       ),
                       const HeightSpacer(height: 20),
@@ -242,7 +252,6 @@ class _EditProductViewState extends State<EditProductView> {
                       String? token = await SharedPref.getToken();
                       log("Token: $token");
                       // if (_formKey.currentState!.validate()) {
-                      //   // Handle save changes logic
                       //   customSnackBar(
                       //     context,
                       //     "Product details updated successfully!",

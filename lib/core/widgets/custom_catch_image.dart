@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCachedImage extends StatelessWidget {
-  const CustomCachedImage({super.key, required this.url, this.height});
+  const CustomCachedImage({super.key, required this.url, this.height, this.width});
   final String url;
-  final double? height;
+  final double? height, width;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 200.h,
-      width: double.infinity,
+      width: width ?? double.infinity,
       child: CachedNetworkImage(
         fit: BoxFit.cover,
         imageUrl: url,

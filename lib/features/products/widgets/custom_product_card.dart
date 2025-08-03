@@ -122,7 +122,10 @@ class CustomProductCard extends StatelessWidget {
                         color: AppColors.kWhiteColor,
                       ),
                       onPressed: () {
-                        context.pushNamed(AppRoutes.editProductsView);
+                        context.pushNamed(
+                          AppRoutes.editProductsView,
+                          extra: productsModel,
+                        );
                       },
                     ),
                     CustomButton(

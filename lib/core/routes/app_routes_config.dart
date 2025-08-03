@@ -5,6 +5,7 @@ import 'package:admin_dashboard/features/auth/view/add_admin_view.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
 import 'package:admin_dashboard/features/home/view/home_view.dart';
 import 'package:admin_dashboard/features/products/cubit/cubit/products_cubit.dart';
+import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:admin_dashboard/features/products/view/comments_view.dart';
 import 'package:admin_dashboard/features/products/view/edit_product_view.dart';
 import 'package:admin_dashboard/features/products/view/products_view.dart';
@@ -50,7 +51,8 @@ class AppRoutesConfig {
         name: AppRoutes.editProductsView,
         path: AppRoutes.editProductsView,
         builder: (BuildContext context, GoRouterState state) {
-          return const EditProductView();
+          HomeProductsModel productsModel = state.extra as HomeProductsModel;
+          return EditProductView(productsModel: productsModel);
         },
       ),
       GoRoute(

@@ -10,6 +10,7 @@ import 'package:admin_dashboard/core/widgets/width_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditProductView extends StatefulWidget {
@@ -34,7 +35,7 @@ class _EditProductViewState extends State<EditProductView> {
     const DropdownMenuEntry<String>(value: "games", label: "Games"),
   ];
   String? selectedCategory;
-  String? sale = "10";
+  String? sale;
   late TextEditingController saleController,
       productNameController,
       oldPriceController,
@@ -59,6 +60,7 @@ class _EditProductViewState extends State<EditProductView> {
       text: widget.productsModel.productDescription,
     );
     selectedCategory = widget.productsModel.productCategory;
+    sale = widget.productsModel.productSale;
     super.initState();
   }
 
@@ -75,10 +77,7 @@ class _EditProductViewState extends State<EditProductView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildCustomAppBar(
-        context,
-        "${widget.productsModel.productName}",
-      ),
+      appBar: buildCustomAppBar(context, "${widget.productsModel.productName}"),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Form(
@@ -103,7 +102,7 @@ class _EditProductViewState extends State<EditProductView> {
                       borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Text(
-                      "${widget.productsModel.productSale} % OFF",
+                      "$sale % OFF",
                       style: TextStyle(
                         color: AppColors.kScaffoldColor,
                         fontSize: 20.sp,
@@ -180,7 +179,7 @@ class _EditProductViewState extends State<EditProductView> {
                         initialSelection: selectedCategory,
                         onSelected: (String? value) {
                           selectedCategory = value;
-                          setState(() {});
+                          // setState(() {});
                         },
                       ),
                     ],
@@ -202,7 +201,7 @@ class _EditProductViewState extends State<EditProductView> {
               CustomTextField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter product name";
+                    return "Please enter product price";
                   } else if (num.tryParse(value) == null) {
                     return "Please enter a valid number";
                   } else if (num.tryParse(value) != null &&
@@ -213,12 +212,17 @@ class _EditProductViewState extends State<EditProductView> {
                 },
                 controller: oldPriceController,
                 labelText: "Old Price",
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'^(\d+)?\.?\d{0,2}'),
+                  ),
+                ],
               ),
               const HeightSpacer(height: 20),
               CustomTextField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter product name";
+                    return "Please enter product price";
                   } else if (num.tryParse(value) == null) {
                     return "Please enter a valid number";
                   } else if (num.tryParse(value) != null &&
@@ -229,6 +233,23 @@ class _EditProductViewState extends State<EditProductView> {
                 },
                 controller: newPriceController,
                 labelText: "New Price",
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'^(\d+)?\.?\d{0,2}'),
+                  ),
+                ],
+                onChanged: (value) {
+                  // Discount Percentage = (old_price - new_price) / old_price * 100;
+                  double discountPercentage =
+                      (double.parse(oldPriceController.text) -
+                          double.parse(value)) /
+                      double.parse(oldPriceController.text) *
+                      100;
+                  sale = discountPercentage.round().toString();
+                  setState(() {
+                    
+                  });
+                },
               ),
               const HeightSpacer(height: 20),
               CustomTextField(

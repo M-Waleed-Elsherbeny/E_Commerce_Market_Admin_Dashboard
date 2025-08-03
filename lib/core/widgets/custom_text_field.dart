@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon, prefixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
   final int maxLines;
   final bool isPassword;
   const CustomTextField({
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.prefixIcon,
     this.isPassword = false,
-    this.maxLines = 1,
+    this.maxLines = 1, this.onChanged,
   });
 
   @override
@@ -29,6 +30,7 @@ class CustomTextField extends StatelessWidget {
       obscuringCharacter: "*",
       maxLines: maxLines,
       cursorColor: AppColors.kPrimaryColor,
+      onChanged: onChanged,
       style: TextStyle(
         fontSize: 15.sp,
         color: AppColors.kBlackColor,

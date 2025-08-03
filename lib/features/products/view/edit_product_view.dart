@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:admin_dashboard/core/colors/app_colors.dart';
 import 'package:admin_dashboard/core/data/shared_pref.dart';
 import 'package:admin_dashboard/core/functions/custom_app_bar.dart';
@@ -8,6 +7,7 @@ import 'package:admin_dashboard/core/widgets/custom_text_field.dart';
 import 'package:admin_dashboard/core/widgets/height_spacer.dart';
 import 'package:admin_dashboard/core/widgets/width_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
+import 'package:admin_dashboard/features/products/functions/pick_image.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,8 +34,8 @@ class _EditProductViewState extends State<EditProductView> {
     const DropdownMenuEntry<String>(value: "books", label: "Books"),
     const DropdownMenuEntry<String>(value: "games", label: "Games"),
   ];
-  String? selectedCategory;
-  String? sale;
+  String? selectedCategory, sale, selectedImage;
+
   late TextEditingController saleController,
       productNameController,
       oldPriceController,
@@ -123,7 +123,7 @@ class _EditProductViewState extends State<EditProductView> {
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: CustomCachedImage(
-                          url: widget.productsModel.productImage!,
+                          url: selectedImage ?? widget.productsModel.productImage!,
                           width: 300.w,
                           height: 300.w,
                         ),
@@ -137,7 +137,18 @@ class _EditProductViewState extends State<EditProductView> {
                           children: [
                             Flexible(
                               child: CustomButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await pickImage().then((value) {
+                                    if (value != null) {
+                                      selectedImage =
+                                          value.files.first.path.toString();
+                                      log(value.files.first.name);
+                                      setState(() {
+                                        
+                                      });
+                                    }
+                                  });
+                                },
                                 child: Icon(
                                   Icons.add_a_photo,
                                   color: AppColors.kScaffoldColor,
@@ -167,6 +178,9 @@ class _EditProductViewState extends State<EditProductView> {
                           shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.r),
+                              side: const BorderSide(
+                                color: AppColors.kPrimaryColor,
+                              ),
                             ),
                           ),
                           side: const WidgetStatePropertyAll(
@@ -246,9 +260,7 @@ class _EditProductViewState extends State<EditProductView> {
                       double.parse(oldPriceController.text) *
                       100;
                   sale = discountPercentage.round().toString();
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 },
               ),
               const HeightSpacer(height: 20),

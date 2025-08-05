@@ -19,9 +19,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(GetProductsLoading());
     try {
       String? token = await SharedPref.getToken();
+      
       if (token != null) {
         Response response = await apiServices.getData("products_table", token);
+        
         if (response.statusCode == 200) {
+          log("200");
           for (var product in response.data) {
             allProducts.add(homeProductsModelFromJson(product));
           }
@@ -32,9 +35,35 @@ class ProductsCubit extends Cubit<ProductsState> {
       } else {
         emit(GetProductsError("You Must Login To See Products"));
       }
-    } catch (e) {
+    }  catch (e) {
       log("Error in getAllProducts: $e");
+
       emit(GetProductsError(e.toString()));
+    }
+  }
+
+  Future<void> editProduct({
+    required String? productId,
+    required Map<String, dynamic> data,
+  }) async {
+    emit(EditProductsLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      if (token != null) {
+        Response response = await apiServices.putData("products_table", data, {
+          "product_id": "eq.$productId",
+        }, token);
+        if (response.statusCode == 204) {
+          emit(EditProductsSuccess());
+        } else {
+          emit(EditProductsError(response.data['message']));
+        }
+      } else {
+        emit(EditProductsError("You Must Login Again..."));
+      }
+    } catch (e) {
+      log("Error in editProduct : $e");
+      emit(EditProductsError(e.toString()));
     }
   }
 

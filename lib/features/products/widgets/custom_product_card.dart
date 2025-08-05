@@ -60,7 +60,7 @@ class CustomProductCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 250.w,
-                  height: 200.h,
+                  height: 250.h,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.r),
                     child: CustomCachedImage(

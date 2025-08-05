@@ -23,12 +23,15 @@ class ApiServices {
     String endPoint,
     Map<String, dynamic> data,
     Map<String, dynamic>? queryParameters,
+    String token,
   ) async {
     try {
       final response = await _dio.post(
         endPoint,
         data: data,
         queryParameters: queryParameters,
+
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
       return response;
     } catch (e) {
@@ -40,12 +43,14 @@ class ApiServices {
     String endPoint,
     Map<String, dynamic> data,
     Map<String, dynamic>? queryParameters,
+    String token,
   ) async {
     try {
       final response = await _dio.patch(
         endPoint,
         data: data,
         queryParameters: queryParameters,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
       );
       return response;
     } catch (e) {

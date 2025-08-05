@@ -4,7 +4,7 @@ import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/core/widgets/custom_catch_image.dart';
 import 'package:admin_dashboard/core/widgets/custom_loading.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
-import 'package:admin_dashboard/features/products/cubit/cubit/products_cubit.dart';
+import 'package:admin_dashboard/features/products/cubit/products_cubit.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -135,6 +135,9 @@ class SoldProducts {
   }
 }
 
+UsersComments usersCommentsModelFromJson(
+  Map<String, dynamic> jsonResponse,
+) => UsersComments.fromJson(jsonResponse);
 class UsersComments {
   String? createdAt;
   String? comment;

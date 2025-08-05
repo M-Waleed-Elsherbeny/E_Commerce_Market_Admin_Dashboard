@@ -4,7 +4,8 @@ import 'package:admin_dashboard/features/auth/cubit/cubit/admin_authentication_c
 import 'package:admin_dashboard/features/auth/view/add_admin_view.dart';
 import 'package:admin_dashboard/features/auth/view/login_view.dart';
 import 'package:admin_dashboard/features/home/view/home_view.dart';
-import 'package:admin_dashboard/features/products/cubit/cubit/products_cubit.dart';
+import 'package:admin_dashboard/features/products/cubit/comments_and_reviews_cubit.dart';
+import 'package:admin_dashboard/features/products/cubit/products_cubit.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:admin_dashboard/features/products/view/comments_view.dart';
 import 'package:admin_dashboard/features/products/view/edit_product_view.dart';
@@ -62,7 +63,10 @@ class AppRoutesConfig {
         name: AppRoutes.commentsView,
         path: AppRoutes.commentsView,
         builder: (BuildContext context, GoRouterState state) {
-          return const CommentsView();
+          return BlocProvider(
+            create: (context) => CommentsAndReviewsCubit()..getComments(),
+            child: const CommentsView(),
+          );
         },
       ),
       GoRoute(

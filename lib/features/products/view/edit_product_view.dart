@@ -9,7 +9,7 @@ import 'package:admin_dashboard/core/widgets/custom_text_field.dart';
 import 'package:admin_dashboard/core/widgets/height_spacer.dart';
 import 'package:admin_dashboard/core/widgets/width_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
-import 'package:admin_dashboard/features/products/cubit/cubit/products_cubit.dart';
+import 'package:admin_dashboard/features/products/cubit/products_cubit.dart';
 import 'package:admin_dashboard/features/products/functions/pick_image.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:flutter/material.dart';

@@ -52,7 +52,10 @@ class AppRoutesConfig {
         path: AppRoutes.editProductsView,
         builder: (BuildContext context, GoRouterState state) {
           HomeProductsModel productsModel = state.extra as HomeProductsModel;
-          return EditProductView(productsModel: productsModel);
+          return BlocProvider(
+            create: (context) => ProductsCubit(),
+            child: EditProductView(productsModel: productsModel),
+          );
         },
       ),
       GoRoute(

@@ -1,5 +1,6 @@
 import 'package:admin_dashboard/core/database/supabase_config.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 class ApiServices {
   final Dio _dio = Dio(
@@ -8,9 +9,10 @@ class ApiServices {
 
   Future<Response> getData(String endPoint, String token) async {
     try {
-      final response = await _dio.get(endPoint, options: Options(
-        headers: {"Authorization": "Bearer $token"}
-      ));
+      final response = await _dio.get(
+        endPoint,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+      );
       return response;
     } catch (e) {
       rethrow;
@@ -81,5 +83,33 @@ class ApiServices {
       queryParameters: {"grant_type": "password"},
     );
     return response;
+  }
+
+  final Dio _dioStorage = Dio();
+  Future<Response> uploadImage({
+    required String bucketName,
+    required Uint8List image,
+    required String imageName,
+    required String token,
+  }) async {
+    try {
+      FormData formData = FormData.fromMap({
+        "file": MultipartFile.fromBytes(image, filename: imageName),
+      });
+      final response = await _dioStorage.post(
+        "$BASE_STORAGE_URL/$bucketName/$imageName",
+        data: formData,
+        options: Options(
+          headers: {
+            "apikey": API_KEY,
+            "Authorization": "Bearer $token",
+            "Content-Type": "multipart/form-data",
+          },
+        ),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -3,7 +3,6 @@ import 'package:admin_dashboard/core/functions/custom_snack_bar.dart';
 import 'package:admin_dashboard/core/routes/app_routes.dart';
 import 'package:admin_dashboard/core/widgets/custom_catch_image.dart';
 import 'package:admin_dashboard/core/widgets/custom_loading.dart';
-import 'package:admin_dashboard/core/widgets/width_spacer.dart';
 import 'package:admin_dashboard/features/auth/widgets/custom_button.dart';
 import 'package:admin_dashboard/features/products/cubit/cubit/products_cubit.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
@@ -61,7 +60,7 @@ class CustomProductCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 250.w,
-                  height: 250.h,
+                  height: 200.h,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.r),
                     child: CustomCachedImage(

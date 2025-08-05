@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:admin_dashboard/core/data/shared_pref.dart';
+import 'package:admin_dashboard/core/database/supabase_config.dart';
 import 'package:admin_dashboard/core/services/api_services.dart';
 import 'package:admin_dashboard/features/products/models/home_products_model.dart';
 import 'package:dio/dio.dart';
@@ -33,6 +35,33 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       log("Error in getAllProducts: $e");
       emit(GetProductsError(e.toString()));
+    }
+  }
+
+  String imageUrl = "";
+  Future<void> uploadImageToSupabase({
+    required String bucketName,
+    required Uint8List image,
+    required String imageName,
+  }) async {
+    emit(UploadImageLoading());
+    String? token = await SharedPref.getToken();
+    try {
+      Response response = await apiServices.uploadImage(
+        bucketName: bucketName,
+        image: image,
+        imageName: imageName,
+        token: token!,
+      );
+      if (response.statusCode == 200) {
+        imageUrl = "$BASE_STORAGE_URL/${response.data['Key']}";
+        emit(UploadImageSuccess());
+      } else {
+        emit(UploadImageError("Failed to upload image"));
+      }
+    } catch (e) {
+      log("Error in uploadImageToSupabase: $e");
+      emit(UploadImageError(e.toString()));
     }
   }
 }

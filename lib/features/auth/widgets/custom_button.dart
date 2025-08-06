@@ -22,9 +22,11 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         minimumSize: Size(buttonWidth ?? 50, buttonHeight ?? 50),
         backgroundColor:backgroundColor ?? AppColors.kPrimaryColor,
+        
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: onPressed,
+      
       child:
           child ??
           Text(

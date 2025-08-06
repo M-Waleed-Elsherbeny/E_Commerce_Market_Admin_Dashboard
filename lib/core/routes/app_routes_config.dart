@@ -63,7 +63,8 @@ class AppRoutesConfig {
         name: AppRoutes.commentsView,
         path: AppRoutes.commentsView,
         builder: (BuildContext context, GoRouterState state) {
-          HomeProductsModel homeProductsModel = state.extra as HomeProductsModel;
+          HomeProductsModel homeProductsModel =
+              state.extra as HomeProductsModel;
           return BlocProvider(
             create:
                 (context) =>
@@ -77,7 +78,10 @@ class AppRoutesConfig {
         name: AppRoutes.addProductsView,
         path: AppRoutes.addProductsView,
         builder: (BuildContext context, GoRouterState state) {
-          return const AddProductView();
+          return BlocProvider(
+            create: (context) => ProductsCubit(),
+            child: const AddProductView(),
+          );
         },
       ),
       GoRoute(

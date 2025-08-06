@@ -5,6 +5,15 @@ sealed class ProductsState {}
 
 final class ProductsInitial extends ProductsState {}
 
+final class AddNewProductLoading extends ProductsState {}
+
+final class AddNewProductSuccess extends ProductsState {}
+
+final class AddNewProductError extends ProductsState {
+  final String errorMessage;
+  AddNewProductError(this.errorMessage);
+}
+
 final class GetProductsLoading extends ProductsState {}
 
 final class GetProductsSuccess extends ProductsState {}

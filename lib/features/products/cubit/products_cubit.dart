@@ -73,24 +73,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     try {
       String? token = await SharedPref.getToken();
       if (token != null) {
-        Response commentResponse = await apiServices.deleteData(
-          "comments_table?product_id=eq.$productId",
-          token,
-        );
-        log(commentResponse.statusCode.toString());
-        log(commentResponse.data.toString());
-        await apiServices.deleteData(
-          "favorite_products_table?product_id=eq.$productId",
-          token,
-        );
-        await apiServices.deleteData(
-          "rates_table?product_id=eq.$productId",
-          token,
-        );
-        await apiServices.deleteData(
-          "sold_products?product_id=eq.$productId",
-          token,
-        );
+      
         Response response = await apiServices.deleteData(
           "products_table?product_id=eq.$productId",
           token,
@@ -104,6 +87,31 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       log("Error in deleteProduct: $e");
       emit(DeleteProductsError(e.toString()));
+    }
+  }
+
+  List<HomeProductsModel> products = [];
+  Future<void> addNewProduct({required Map<String, dynamic> data}) async {
+    emit(AddNewProductLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      if (token != null) {
+        Response response = await apiServices.postData(
+          "products_table",
+          data,
+          {},
+          token,
+        );
+        log("Add Data Response ====> ${response.statusCode}");
+        if (response.statusCode == 201) {
+          emit(AddNewProductSuccess());
+        }
+      } else {
+        emit(AddNewProductError("You Must Login Again..."));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(AddNewProductError(e.toString()));
     }
   }
 

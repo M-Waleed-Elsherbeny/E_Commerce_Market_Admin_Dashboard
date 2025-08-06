@@ -91,7 +91,7 @@ class _EditProductViewState extends State<EditProductView> {
         }
       },
       builder: (context, state) {
-        final cubit = context.read<ProductsCubit>();
+        ProductsCubit cubit = context.read<ProductsCubit>();
         return Scaffold(
           appBar: buildCustomAppBar(
             context,

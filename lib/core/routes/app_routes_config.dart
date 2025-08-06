@@ -63,8 +63,12 @@ class AppRoutesConfig {
         name: AppRoutes.commentsView,
         path: AppRoutes.commentsView,
         builder: (BuildContext context, GoRouterState state) {
+          HomeProductsModel homeProductsModel = state.extra as HomeProductsModel;
           return BlocProvider(
-            create: (context) => CommentsAndReviewsCubit()..getComments(),
+            create:
+                (context) =>
+                    CommentsAndReviewsCubit()
+                      ..getComments(productId: homeProductsModel.productId!),
             child: const CommentsView(),
           );
         },

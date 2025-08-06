@@ -13,20 +13,18 @@ class CommentsAndReviewsCubit extends Cubit<CommentsAndReviewsState> {
   ApiServices apiServices = ApiServices();
   List<UsersComments> userComments = [];
 
-  Future<void> getComments() async {
+  Future<void> getComments({required String productId}) async {
     emit(GetCommentsLoading());
     try {
       String? token = await SharedPref.getToken();
       if (token != null) {
         Response response = await apiServices.getData(
-          "comments_table?select=*,users(*)",
+          "comments_table?product_id=eq.$productId",
           token,
         );
         if (response.statusCode == 200) {
           for (var comments in response.data) {
-            userComments.add(
-              usersCommentsModelFromJson(comments),
-            );
+            userComments.add(usersCommentsModelFromJson(comments));
           }
           // log(userComments.first.userName.toString());
           emit(GetCommentsSuccess());

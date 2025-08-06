@@ -58,9 +58,10 @@ class ApiServices {
     }
   }
 
-  Future<Response> deleteData(String endPoint) async {
+  Future<Response> deleteData(String endPoint, String token) async {
     try {
-      final response = await _dio.delete(endPoint);
+      final response = await _dio.delete(endPoint, options: Options(headers: {"Authorization": "Bearer $token"}),
+      );
       return response;
     } catch (e) {
       rethrow;

@@ -19,10 +19,10 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(GetProductsLoading());
     try {
       String? token = await SharedPref.getToken();
-      
+
       if (token != null) {
         Response response = await apiServices.getData("products_table", token);
-        
+
         if (response.statusCode == 200) {
           log("200");
           for (var product in response.data) {
@@ -35,7 +35,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       } else {
         emit(GetProductsError("You Must Login To See Products"));
       }
-    }  catch (e) {
+    } catch (e) {
       log("Error in getAllProducts: $e");
 
       emit(GetProductsError(e.toString()));
@@ -64,6 +64,46 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       log("Error in editProduct : $e");
       emit(EditProductsError(e.toString()));
+    }
+  }
+
+  /// Delete Product By ID
+  Future<void> deleteProduct({required String productId}) async {
+    emit(DeleteProductsLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      if (token != null) {
+        Response commentResponse = await apiServices.deleteData(
+          "comments_table?product_id=eq.$productId",
+          token,
+        );
+        log(commentResponse.statusCode.toString());
+        log(commentResponse.data.toString());
+        await apiServices.deleteData(
+          "favorite_products_table?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
+          "rates_table?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
+          "sold_products?product_id=eq.$productId",
+          token,
+        );
+        Response response = await apiServices.deleteData(
+          "products_table?product_id=eq.$productId",
+          token,
+        );
+        if (response.statusCode == 200) {
+          emit(DeleteProductsSuccess());
+        }
+      } else {
+        emit(DeleteProductsError("You Must Login Again..."));
+      }
+    } catch (e) {
+      log("Error in deleteProduct: $e");
+      emit(DeleteProductsError(e.toString()));
     }
   }
 

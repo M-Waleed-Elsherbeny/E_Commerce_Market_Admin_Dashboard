@@ -14,7 +14,6 @@ final class GetProductsError extends ProductsState {
   GetProductsError(this.errorMessage);
 }
 
-
 final class EditProductsLoading extends ProductsState {}
 
 final class EditProductsSuccess extends ProductsState {}
@@ -22,6 +21,15 @@ final class EditProductsSuccess extends ProductsState {}
 final class EditProductsError extends ProductsState {
   final String errorMessage;
   EditProductsError(this.errorMessage);
+}
+
+final class DeleteProductsLoading extends ProductsState {}
+
+final class DeleteProductsSuccess extends ProductsState {}
+
+final class DeleteProductsError extends ProductsState {
+  final String errorMessage;
+  DeleteProductsError(this.errorMessage);
 }
 
 final class UploadImageLoading extends ProductsState {}

@@ -21,10 +21,17 @@ class CustomProductView extends StatelessWidget {
         if (state is GetProductsError) {
           customSnackBar(context, state.errorMessage);
         }
+        if (state is DeleteProductsError) {
+          customSnackBar(context, state.errorMessage);
+        }
+        if (state is DeleteProductsSuccess) {
+          context.pop();
+          customSnackBar(context, "Product has Deleted Successfully...");
+        }
       },
       builder: (context, state) {
         ProductsCubit productsCubit = context.read<ProductsCubit>();
-        return state is GetProductsLoading
+        return state is GetProductsLoading || state is DeleteProductsLoading
             ? const CustomLoading()
             : ListView.builder(
               itemCount: productsCubit.allProducts.length,
@@ -33,6 +40,12 @@ class CustomProductView extends StatelessWidget {
                     ? const CustomLoading()
                     : CustomProductCard(
                       productsModel: productsCubit.allProducts[index],
+                      onDeletePressed: () async {
+                        await productsCubit.deleteProduct(
+                          productId:
+                              productsCubit.allProducts[index].productId!,
+                        );
+                      },
                     );
               },
             );
@@ -42,8 +55,13 @@ class CustomProductView extends StatelessWidget {
 }
 
 class CustomProductCard extends StatelessWidget {
-  const CustomProductCard({super.key, required this.productsModel});
+  const CustomProductCard({
+    super.key,
+    required this.productsModel,
+    this.onDeletePressed,
+  });
   final HomeProductsModel productsModel;
+  final VoidCallback? onDeletePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +157,11 @@ class CustomProductCard extends StatelessWidget {
                           color: AppColors.kWhiteColor,
                         ),
                         onPressed: () {
-                          context.pushNamed(AppRoutes.commentsView);
+                          context.pushNamed(AppRoutes.commentsView, extra: productsModel);
                         },
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: onDeletePressed,
                         backgroundColor: AppColors.kRedColor,
                         child: Icon(
                           Icons.delete,

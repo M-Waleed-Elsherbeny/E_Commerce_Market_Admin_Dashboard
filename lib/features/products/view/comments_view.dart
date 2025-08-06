@@ -24,6 +24,16 @@ class CommentsView extends StatelessWidget {
           body:
               state is GetCommentsLoading
                   ? const CustomLoading()
+                  : cubit.userComments.isEmpty
+                  ? Center(
+                    child: Text(
+                      "No Comments in this Product",
+                      style: TextStyle(
+                        fontSize: 50.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                   : ListView.builder(
                     itemCount: cubit.userComments.length,
                     itemBuilder: (context, index) {
@@ -46,21 +56,27 @@ class CommentsView extends StatelessWidget {
                             ),
                             const HeightSpacer(height: 20),
                             Text(
-                              'User Comment : ${cubit.userComments[index].comment}',
+                              'User Comment : ${cubit.userComments[index].comment ?? "No Comment Yet"}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const HeightSpacer(height: 20),
-                            const Text(
-                              'User Rate : This is a sample rate.',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                            // const HeightSpacer(height: 20),
+                            // const Text(
+                            //   'User Rate : This is a sample rate.',
+                            //   style: TextStyle(fontWeight: FontWeight.bold),
+                            // ),
                             const HeightSpacer(height: 70),
-                            Text(
-                              'Reply : ${cubit.userComments[index].replay}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                            Visibility(
+                              visible:
+                                  cubit.userComments[index].replay == null
+                                      ? false
+                                      : true,
+                              child: Text(
+                                'Reply : ${cubit.userComments[index].replay}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             const HeightSpacer(height: 50),

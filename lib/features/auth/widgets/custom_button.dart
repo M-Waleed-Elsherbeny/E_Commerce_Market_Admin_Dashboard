@@ -8,7 +8,8 @@ class CustomButton extends StatelessWidget {
     this.buttonHeight,
     this.textButton = "no Name",
     this.onPressed,
-    this.child, this.backgroundColor,
+    this.child,
+    this.backgroundColor,
   });
   final double? buttonWidth, buttonHeight;
   final String textButton;
@@ -21,12 +22,10 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(buttonWidth ?? 50, buttonHeight ?? 50),
-        backgroundColor:backgroundColor ?? AppColors.kPrimaryColor,
-        
+        backgroundColor: backgroundColor ?? AppColors.kPrimaryColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: onPressed,
-      
       child:
           child ??
           Text(

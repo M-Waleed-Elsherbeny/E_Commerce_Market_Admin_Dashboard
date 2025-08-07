@@ -33,20 +33,24 @@ class CustomProductView extends StatelessWidget {
         ProductsCubit productsCubit = context.read<ProductsCubit>();
         return state is GetProductsLoading || state is DeleteProductsLoading
             ? const CustomLoading()
+            : productsCubit.allProducts.isEmpty
+            ? Center(
+              child: Text(
+                "No Products Add Yet",
+                style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.bold),
+              ),
+            )
             : ListView.builder(
               itemCount: productsCubit.allProducts.length,
               itemBuilder: (context, index) {
-                return state is GetProductsLoading
-                    ? const CustomLoading()
-                    : CustomProductCard(
-                      productsModel: productsCubit.allProducts[index],
-                      onDeletePressed: () async {
-                        await productsCubit.deleteProduct(
-                          productId:
-                              productsCubit.allProducts[index].productId!,
-                        );
-                      },
+                return CustomProductCard(
+                  productsModel: productsCubit.allProducts[index],
+                  onDeletePressed: () async {
+                    await productsCubit.deleteProduct(
+                      productId: productsCubit.allProducts[index].productId!,
                     );
+                  },
+                );
               },
             );
       },
@@ -157,7 +161,10 @@ class CustomProductCard extends StatelessWidget {
                           color: AppColors.kWhiteColor,
                         ),
                         onPressed: () {
-                          context.pushNamed(AppRoutes.commentsView, extra: productsModel);
+                          context.pushNamed(
+                            AppRoutes.commentsView,
+                            extra: productsModel,
+                          );
                         },
                       ),
                       CustomButton(

@@ -73,14 +73,28 @@ class ProductsCubit extends Cubit<ProductsState> {
     try {
       String? token = await SharedPref.getToken();
       if (token != null) {
-      
-        Response response = await apiServices.deleteData(
+        await apiServices.deleteData(
+          "comments_table?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
+          "favorite_products_table?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
+          "rates_table?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
+          "sold_products?product_id=eq.$productId",
+          token,
+        );
+        await apiServices.deleteData(
           "products_table?product_id=eq.$productId",
           token,
         );
-        if (response.statusCode == 200) {
-          emit(DeleteProductsSuccess());
-        }
+
+        emit(DeleteProductsSuccess());
       } else {
         emit(DeleteProductsError("You Must Login Again..."));
       }

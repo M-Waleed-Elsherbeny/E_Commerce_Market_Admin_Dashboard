@@ -171,16 +171,27 @@ class _CustomAddProductState extends State<CustomAddProduct> {
                                   ),
                                   Flexible(
                                     child: CustomButton(
-                                      onPressed: () async {
-                                        if (selectedImage != null) {
-                                          await cubit.uploadImageToSupabase(
-                                            bucketName: "images",
-                                            image: image!,
-                                            imageName: imageName!,
-                                          );
-                                          log(cubit.imageUrl);
-                                        }
-                                      },
+                                      onPressed:
+                                          state is UploadImageSuccess
+                                              ? null
+                                              : () async {
+                                                if (selectedImage != null) {
+                                                  await cubit.uploadImageToSupabase(
+                                                    bucketName: "images",
+                                                    image: image!,
+                                                    imageName:
+                                                        "$imageName${DateTime.now().second}",
+                                                  );
+                                                  log(cubit.imageUrl);
+                                                } else {
+                                                  customSnackBar(
+                                                    context,
+                                                    "Please Select Image Before Uploading",
+                                                    backgroundColor:
+                                                        AppColors.kRedColor,
+                                                  );
+                                                }
+                                              },
                                       child:
                                           state is UploadImageLoading
                                               ? const CustomLoading(
@@ -322,6 +333,14 @@ class _CustomAddProductState extends State<CustomAddProduct> {
                                     "product_category": selectedCategory,
                                   },
                                 );
+                                productNameController.clear();
+                                oldPriceController.clear();
+                                newPriceController.clear();
+                                descriptionController.clear();
+                                selectedImage = "";
+                                sale = "0";
+                                selectedCategory =
+                                    dropdownMenuEntries.first.label;
                               } else {
                                 customSnackBar(context, "Please Upload Image");
                               }
